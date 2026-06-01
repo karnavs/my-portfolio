@@ -1,11 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/png" href="/logo.png" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Karna VS</title>
-  <meta name="description" content="Karna VS" />
+  <meta name="description" content="Karna VS — Full Stack Developer | Cloud & CyberSec Analyst based in Bengaluru. Building scalable systems with Java, Spring Boot, Next.js and more." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <style>
@@ -44,6 +44,14 @@
     a { color: inherit; text-decoration: none; }
     img { display: block; max-width: 100%; }
 
+    /* ── STARFIELD CANVAS ── */
+    #starfield {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
     /* ── GRAIN OVERLAY ── */
     body::before {
       content: '';
@@ -53,6 +61,12 @@
       z-index: 9999;
       opacity: 0.025;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+    }
+
+    /* All page content sits above the canvas */
+    nav, section, .ticker-wrap, footer, #hero {
+      position: relative;
+      z-index: 1;
     }
 
     /* ── UTILS ── */
@@ -142,7 +156,6 @@
       padding: 8rem 4rem 5rem;
       position: relative;
     }
-    /* subtle grid bg */
     #hero::after {
       content: '';
       position: absolute;
@@ -152,8 +165,8 @@
         linear-gradient(90deg, rgba(0,229,255,0.025) 1px, transparent 1px);
       background-size: 64px 64px;
       pointer-events: none;
+      z-index: 0;
     }
-    /* radial glow top-left */
     #hero::before {
       content: '';
       position: absolute;
@@ -161,6 +174,7 @@
       width: 600px; height: 600px;
       background: radial-gradient(ellipse at center, rgba(0,229,255,0.07), transparent 70%);
       pointer-events: none;
+      z-index: 0;
     }
 
     .hero-left { position: relative; z-index: 1; }
@@ -320,8 +334,198 @@
     /* ── SHARED SECTION ── */
     section { padding: 6rem 4rem; }
 
+    /* ── ABOUT ── */
+    #about { background: rgba(8,16,26,0.92); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 3rem;
+    }
+    .about-bio {
+      font-size: 1.02rem;
+      line-height: 1.82;
+      color: var(--text-dim);
+    }
+    .about-bio p + p { margin-top: 1.1rem; }
+    .hl { color: var(--cyan); }
+    .about-email {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-top: 1.6rem;
+      font-family: var(--mono);
+      font-size: 0.82rem;
+      color: var(--cyan);
+      transition: opacity 0.2s;
+    }
+    .about-email:hover { opacity: 0.75; }
+
+    .skill-cats { display: flex; flex-direction: column; gap: 1.6rem; }
+    .skill-cat h4 {
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--amber);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      margin-bottom: 0.6rem;
+    }
+    .pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+    .pill {
+      font-size: 0.78rem;
+      font-weight: 500;
+      padding: 0.28rem 0.72rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 100px;
+      color: var(--text-dim);
+      transition: all 0.2s;
+    }
+    .pill:hover {
+      background: var(--cyan-dim);
+      border-color: var(--cyan);
+      color: var(--cyan);
+    }
+
+    /* ── PROJECTS ── */
+    #projects { background: rgba(6,10,15,0.92); }
+    .proj-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 2.8rem;
+    }
+    .gh-btn {
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      transition: color 0.2s;
+      padding-bottom: 0.2rem;
+    }
+    .gh-btn:hover { color: var(--cyan); }
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.4rem;
+    }
+    .proj-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 1.8rem;
+      position: relative;
+      overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .proj-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .proj-card:hover {
+      border-color: var(--border-hi);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+    }
+    .proj-card:hover::before { opacity: 1; }
+    .proj-card.featured {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2.5rem;
+      align-items: start;
+    }
+    .proj-num {
+      font-family: var(--display);
+      font-size: 3.5rem;
+      color: rgba(0,229,255,0.05);
+      line-height: 1;
+      margin-bottom: -0.3rem;
+    }
+    .proj-badges { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
+    .badge {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      padding: 0.14rem 0.5rem;
+      border-radius: 2px;
+      text-transform: uppercase;
+    }
+    .b-feat  { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(255,179,0,0.22); }
+    .b-live  { background: rgba(34,197,94,0.08); color: var(--green); border: 1px solid rgba(34,197,94,0.22); }
+    .b-done  { background: rgba(99,102,241,0.08); color: #A5B4FC; border: 1px solid rgba(99,102,241,0.22); }
+    .b-dev   { background: rgba(255,69,96,0.07); color: var(--red); border: 1px solid rgba(255,69,96,0.18); }
+    .b-web   { background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--border); }
+    .b-ai    { background: rgba(168,85,247,0.08); color: #C084FC; border: 1px solid rgba(168,85,247,0.22); }
+    .b-block { background: rgba(251,146,60,0.08); color: #FB923C; border: 1px solid rgba(251,146,60,0.22); }
+    .b-cloud { background: rgba(99,102,241,0.08); color: #818CF8; border: 1px solid rgba(99,102,241,0.2); }
+    .b-sec   { background: rgba(239,68,68,0.07); color: #F87171; border: 1px solid rgba(239,68,68,0.18); }
+
+    .proj-name {
+      font-family: var(--display);
+      font-size: 1.35rem;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      margin-bottom: 0.55rem;
+    }
+    .proj-desc {
+      font-size: 0.86rem;
+      line-height: 1.65;
+      color: var(--text-dim);
+      margin-bottom: 1.1rem;
+    }
+    .proj-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.1rem; }
+    .s-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--muted);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      padding: 0.13rem 0.45rem;
+      border-radius: 2px;
+    }
+    .proj-links { display: flex; gap: 1rem; }
+    .p-link {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      color: var(--muted);
+      transition: color 0.2s;
+      letter-spacing: 0.04em;
+    }
+    .p-link:hover { color: var(--cyan); }
+    .p-link.live-l { color: var(--green); }
+    .p-link.live-l:hover { color: #4ADE80; }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--mono);
+      font-size: 0.66rem;
+      color: var(--green);
+      background: rgba(34,197,94,0.06);
+      border: 1px solid rgba(34,197,94,0.2);
+      padding: 0.4rem 0.75rem;
+      border-radius: 3px;
+      white-space: nowrap;
+      align-self: flex-start;
+      margin-top: 0.5rem;
+    }
+    .live-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 6px var(--green);
+      animation: blink 1.4s infinite;
+    }
+
     /* ── EDUCATION ── */
-    #education { background: var(--bg); }
+    #education { background: rgba(8,16,26,0.92); }
     .edu-grid {
       display: grid;
       grid-template-columns: 1fr 1.5fr;
@@ -456,195 +660,8 @@
     }
     .sem-note strong { color: var(--text); }
 
-    /* ── ABOUT ── */
-    #about { background: #08101A; }
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 1fr;
-      gap: 5rem;
-      align-items: start;
-      margin-top: 3rem;
-    }
-    .about-bio {
-      font-size: 1.02rem;
-      line-height: 1.82;
-      color: var(--text-dim);
-    }
-    .about-bio p + p { margin-top: 1.1rem; }
-    .hl { color: var(--cyan); }
-    .about-email {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      margin-top: 1.6rem;
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      color: var(--cyan);
-      transition: opacity 0.2s;
-    }
-    .about-email:hover { opacity: 0.75; }
-
-    .skill-cats { display: flex; flex-direction: column; gap: 1.6rem; }
-    .skill-cat h4 {
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      color: var(--amber);
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      margin-bottom: 0.6rem;
-    }
-    .pills { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .pill {
-      font-size: 0.78rem;
-      font-weight: 500;
-      padding: 0.28rem 0.72rem;
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.07);
-      border-radius: 100px;
-      color: var(--text-dim);
-      transition: all 0.2s;
-    }
-    .pill:hover {
-      background: var(--cyan-dim);
-      border-color: var(--cyan);
-      color: var(--cyan);
-    }
-
-    /* ── PROJECTS ── */
-    #projects { background: var(--bg); }
-    .proj-head {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-bottom: 2.8rem;
-    }
-    .gh-btn {
-      font-family: var(--mono);
-      font-size: 0.75rem;
-      color: var(--muted);
-      transition: color 0.2s;
-      padding-bottom: 0.2rem;
-    }
-    .gh-btn:hover { color: var(--cyan); }
-    .project-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 1.4rem;
-    }
-    .proj-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 1.8rem;
-      position: relative;
-      overflow: hidden;
-      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
-    }
-    .proj-card::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-    .proj-card:hover {
-      border-color: var(--border-hi);
-      transform: translateY(-3px);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-    }
-    .proj-card:hover::before { opacity: 1; }
-    .proj-card.featured {
-      grid-column: 1 / -1;
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 2.5rem;
-      align-items: start;
-    }
-    .proj-num {
-      font-family: var(--display);
-      font-size: 3.5rem;
-      color: rgba(0,229,255,0.05);
-      line-height: 1;
-      margin-bottom: -0.3rem;
-    }
-    .proj-badges { display: flex; gap: 0.45rem; flex-wrap: wrap; margin-bottom: 0.7rem; }
-    .badge {
-      font-family: var(--mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.1em;
-      padding: 0.14rem 0.5rem;
-      border-radius: 2px;
-      text-transform: uppercase;
-    }
-    .b-feat  { background: var(--amber-dim); color: var(--amber); border: 1px solid rgba(255,179,0,0.22); }
-    .b-live  { background: rgba(34,197,94,0.08); color: var(--green); border: 1px solid rgba(34,197,94,0.22); }
-    .b-dev   { background: rgba(255,69,96,0.07); color: var(--red); border: 1px solid rgba(255,69,96,0.18); }
-    .b-web   { background: var(--cyan-dim); color: var(--cyan); border: 1px solid var(--border); }
-    .b-cloud { background: rgba(99,102,241,0.08); color: #818CF8; border: 1px solid rgba(99,102,241,0.2); }
-    .b-sec   { background: rgba(239,68,68,0.07); color: #F87171; border: 1px solid rgba(239,68,68,0.18); }
-
-    .proj-name {
-      font-family: var(--display);
-      font-size: 1.35rem;
-      letter-spacing: 0.04em;
-      color: var(--text);
-      margin-bottom: 0.55rem;
-    }
-    .proj-desc {
-      font-size: 0.86rem;
-      line-height: 1.65;
-      color: var(--text-dim);
-      margin-bottom: 1.1rem;
-    }
-    .proj-stack { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.1rem; }
-    .s-tag {
-      font-family: var(--mono);
-      font-size: 0.65rem;
-      color: var(--muted);
-      background: rgba(255,255,255,0.03);
-      border: 1px solid rgba(255,255,255,0.06);
-      padding: 0.13rem 0.45rem;
-      border-radius: 2px;
-    }
-    .proj-links { display: flex; gap: 1rem; }
-    .p-link {
-      font-family: var(--mono);
-      font-size: 0.72rem;
-      color: var(--muted);
-      transition: color 0.2s;
-      letter-spacing: 0.04em;
-    }
-    .p-link:hover { color: var(--cyan); }
-    .p-link.live-l { color: var(--green); }
-    .p-link.live-l:hover { color: #4ADE80; }
-
-    .live-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.4rem;
-      font-family: var(--mono);
-      font-size: 0.66rem;
-      color: var(--green);
-      background: rgba(34,197,94,0.06);
-      border: 1px solid rgba(34,197,94,0.2);
-      padding: 0.4rem 0.75rem;
-      border-radius: 3px;
-      white-space: nowrap;
-      align-self: flex-start;
-      margin-top: 0.5rem;
-    }
-    .live-dot {
-      width: 5px; height: 5px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 6px var(--green);
-      animation: blink 1.4s infinite;
-    }
-
     /* ── CERTS ── */
-    #certs { background: #08101A; }
+    #certs { background: rgba(6,10,15,0.92); }
     .cert-list {
       display: flex;
       flex-direction: column;
@@ -683,7 +700,7 @@
     }
 
     /* ── CONTACT ── */
-    #contact { background: var(--bg); }
+    #contact { background: rgba(8,16,26,0.92); }
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1.1fr;
@@ -780,6 +797,9 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      background: rgba(6,10,15,0.6);
     }
     .footer-name {
       font-family: var(--display);
@@ -830,13 +850,16 @@
 </head>
 <body>
 
+<!-- ══ STARFIELD CANVAS ══ -->
+<canvas id="starfield"></canvas>
+
 <!-- ══ NAV ══ -->
 <nav>
-  <a href="#" class="nav-logo">KVS.</a>
+  <a href="#" class="nav-logo">KV.</a>
   <ul class="nav-links">
-    <li><a href="#education">Education</a></li>
     <li><a href="#about">About</a></li>
     <li><a href="#projects">Projects</a></li>
+    <li><a href="#education">Education</a></li>
     <li><a href="#certs">Certs</a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
@@ -870,7 +893,7 @@
 
     <div class="hero-stats">
       <div>
-        <span class="stat-num">2+</span>
+        <span class="stat-num">3+</span>
         <span class="stat-label">Live Projects</span>
       </div>
       <div>
@@ -922,9 +945,10 @@
     <span class="ticker-item"><b>·</b> JavaScript</span>
     <span class="ticker-item"><b>·</b> Node.js</span>
     <span class="ticker-item"><b>·</b> Next.js</span>
-    <span class="ticker-item"><b>·</b> Django</span>
+    <span class="ticker-item"><b>·</b> FastAPI</span>
+    <span class="ticker-item"><b>·</b> PyTorch</span>
+    <span class="ticker-item"><b>·</b> Solidity</span>
     <span class="ticker-item"><b>·</b> MongoDB</span>
-    <span class="ticker-item"><b>·</b> MATLAB</span>
     <span class="ticker-item"><b>·</b> REST APIs</span>
     <span class="ticker-item"><b>·</b> Cloud Dev</span>
     <span class="ticker-item"><b>·</b> Cybersecurity</span>
@@ -933,15 +957,17 @@
     <span class="ticker-item"><b>·</b> Git &amp; GitHub</span>
     <span class="ticker-item"><b>·</b> Linux</span>
     <span class="ticker-item"><b>·</b> Vercel</span>
+    <span class="ticker-item"><b>·</b> Blockchain</span>
     <!-- duplicate for seamless loop -->
     <span class="ticker-item"><b>·</b> Java</span>
     <span class="ticker-item"><b>·</b> Spring Boot</span>
     <span class="ticker-item"><b>·</b> JavaScript</span>
     <span class="ticker-item"><b>·</b> Node.js</span>
     <span class="ticker-item"><b>·</b> Next.js</span>
-    <span class="ticker-item"><b>·</b> Django</span>
+    <span class="ticker-item"><b>·</b> FastAPI</span>
+    <span class="ticker-item"><b>·</b> PyTorch</span>
+    <span class="ticker-item"><b>·</b> Solidity</span>
     <span class="ticker-item"><b>·</b> MongoDB</span>
-    <span class="ticker-item"><b>·</b> MATLAB</span>
     <span class="ticker-item"><b>·</b> REST APIs</span>
     <span class="ticker-item"><b>·</b> Cloud Dev</span>
     <span class="ticker-item"><b>·</b> Cybersecurity</span>
@@ -950,8 +976,191 @@
     <span class="ticker-item"><b>·</b> Git &amp; GitHub</span>
     <span class="ticker-item"><b>·</b> Linux</span>
     <span class="ticker-item"><b>·</b> Vercel</span>
+    <span class="ticker-item"><b>·</b> Blockchain</span>
   </div>
 </div>
+
+<!-- ══ ABOUT ══ -->
+<section id="about">
+  <div class="section-label">About me</div>
+  <div class="section-title">BUILDING SYSTEMS<br><em>THAT SCALE.</em></div>
+
+  <div class="about-grid">
+    <div class="reveal">
+      <div class="about-bio">
+        <p>
+          I'm a 4th year Computer Science student at <span class="hl">Dayananda Sagar University, Bengaluru</span> (CGPA: 8.69), focused on full-stack engineering, cloud infrastructure, and cybersecurity fundamentals.
+        </p>
+        <p>
+          I build across the entire stack — Java, Spring Boot, Node.js, Next.js, Django, and MongoDB — and care deeply about clean architecture, maintainable code, and shipping things that actually run in production, not just in a dev sandbox.
+        </p>
+        <p>
+          My interests span <span class="hl">AI-integrated cloud systems</span>, backend API design, and network security. I want to build tools that solve real problems — not just demos that live in a README and never get opened.
+        </p>
+      </div>
+      <a href="mailto:karnavs2k5@gmail.com" class="about-email">✉ karnavs2k5@gmail.com</a>
+    </div>
+
+    <div class="skill-cats reveal">
+      <div class="skill-cat">
+        <h4>Backend &amp; APIs</h4>
+        <div class="pills">
+          <span class="pill">Java</span>
+          <span class="pill">Spring Boot</span>
+          <span class="pill">Node.js</span>
+          <span class="pill">Express.js</span>
+          <span class="pill">Django</span>
+          <span class="pill">FastAPI</span>
+          <span class="pill">REST APIs</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>Frontend</h4>
+        <div class="pills">
+          <span class="pill">JavaScript</span>
+          <span class="pill">Next.js</span>
+          <span class="pill">React</span>
+          <span class="pill">HTML5</span>
+          <span class="pill">CSS3</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>AI / ML &amp; Blockchain</h4>
+        <div class="pills">
+          <span class="pill">PyTorch</span>
+          <span class="pill">CNN / ResNet</span>
+          <span class="pill">Solidity</span>
+          <span class="pill">Ethereum</span>
+          <span class="pill">Smart Contracts</span>
+          <span class="pill">SHA-256</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>Cloud &amp; Security</h4>
+        <div class="pills">
+          <span class="pill">Cloud Dev</span>
+          <span class="pill">Network Security</span>
+          <span class="pill">Linux</span>
+          <span class="pill">CyberSec Fundamentals</span>
+          <span class="pill">Firewalls &amp; Protocols</span>
+        </div>
+      </div>
+      <div class="skill-cat">
+        <h4>Tools &amp; Platforms</h4>
+        <div class="pills">
+          <span class="pill">MongoDB</span>
+          <span class="pill">Git</span>
+          <span class="pill">GitHub</span>
+          <span class="pill">Vercel</span>
+          <span class="pill">Postman</span>
+          <span class="pill">Hardhat</span>
+          <span class="pill">VS Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROJECTS ══ -->
+<section id="projects">
+  <div class="proj-head">
+    <div>
+      <div class="section-label">Work</div>
+      <div class="section-title" style="margin-bottom:0">PROJECTS</div>
+    </div>
+    <a href="https://github.com/karnavs" target="_blank" class="gh-btn">View all on GitHub →</a>
+  </div>
+
+  <div class="project-grid">
+
+    <!-- 01 — Featured -->
+    <div class="proj-card featured reveal">
+      <div>
+        <div class="proj-num">01</div>
+        <div class="proj-badges">
+          <span class="badge b-feat">★ Featured</span>
+          <span class="badge b-live">Live</span>
+          <span class="badge b-web">Full Stack</span>
+        </div>
+        <div class="proj-name">EXPENSE TRACKER</div>
+        <p class="proj-desc">
+          Production-deployed CRUD financial tracker with a real-time analytics dashboard, transaction history, and persistent state management. Built with a clean modular frontend architecture and Spring Boot REST API integration in active development. Deployed on Vercel.
+        </p>
+        <div class="proj-stack">
+          <span class="s-tag">JavaScript</span>
+          <span class="s-tag">HTML5</span>
+          <span class="s-tag">CSS3</span>
+          <span class="s-tag">Java</span>
+          <span class="s-tag">Spring Boot</span>
+          <span class="s-tag">LocalStorage</span>
+          <span class="s-tag">Vercel</span>
+        </div>
+        <div class="proj-links">
+          <a href="https://github.com/karnavs/expense-tracker" target="_blank" class="p-link">GitHub</a>
+          <a href="https://xpense-tracker-karna.vercel.app/" target="_blank" class="p-link live-l">Live Demo ↗</a>
+        </div>
+      </div>
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        LIVE ↗
+      </div>
+    </div>
+
+    <!-- 02 — Emotix AI -->
+    <div class="proj-card reveal">
+      <div class="proj-num">02</div>
+      <div class="proj-badges">
+        <span class="badge b-ai">AI / ML</span>
+        <span class="badge b-live">Live</span>
+      </div>
+      <div class="proj-name">EMOTIX AI</div>
+      <p class="proj-desc">
+        Multimodal emotion detection platform that analyzes facial expressions from uploaded images using deep learning. Combines a web interface, FastAPI backend, and a CNN pipeline trained on FER2013 to deliver real-time emotion predictions and insights.
+      </p>
+      <div class="proj-stack">
+        <span class="s-tag">Python</span>
+        <span class="s-tag">FastAPI</span>
+        <span class="s-tag">PyTorch</span>
+        <span class="s-tag">CNN / ResNet-18</span>
+        <span class="s-tag">FER2013</span>
+        <span class="s-tag">JavaScript</span>
+        <span class="s-tag">REST APIs</span>
+        <span class="s-tag">Vercel</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/karnavs/emotixai/" target="_blank" class="p-link">GitHub</a>
+        <a href="https://emotixai-hvgt.vercel.app/" target="_blank" class="p-link live-l">Live Demo ↗</a>
+      </div>
+    </div>
+
+    <!-- 03 — Aegis -->
+    <div class="proj-card reveal">
+      <div class="proj-num">03</div>
+      <div class="proj-badges">
+        <span class="badge b-block">Blockchain</span>
+        <span class="badge b-done">Completed</span>
+      </div>
+      <div class="proj-name">AEGIS</div>
+      <p class="proj-desc">
+        Decentralized blockchain platform for secure, transparent, and tamper-proof digital transactions — no central authority required. Uses Ethereum smart contracts written in Solidity to automate transaction logic, with SHA-256 cryptography ensuring data integrity throughout.
+      </p>
+      <div class="proj-stack">
+        <span class="s-tag">Solidity</span>
+        <span class="s-tag">Ethereum</span>
+        <span class="s-tag">JavaScript</span>
+        <span class="s-tag">React</span>
+        <span class="s-tag">Node.js</span>
+        <span class="s-tag">SHA-256</span>
+        <span class="s-tag">Hardhat</span>
+        <span class="s-tag">MongoDB</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/karnavs/aegis-team404" target="_blank" class="p-link">GitHub</a>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 <!-- ══ EDUCATION ══ -->
 <section id="education">
@@ -1024,168 +1233,6 @@
         SGPA jumped from <strong>8.57 → 9.00</strong> — best semester in Sem 5. CGPA steady at <strong>8.69</strong>.
       </p>
     </div>
-  </div>
-</section>
-
-<!-- ══ ABOUT ══ -->
-<section id="about">
-  <div class="section-label">About me</div>
-  <div class="section-title">BUILDING SYSTEMS<br><em>THAT SCALE.</em></div>
-
-  <div class="about-grid">
-    <div class="reveal">
-      <div class="about-bio">
-        <p>
-          I'm a 4th year Computer Science student at <span class="hl">Dayananda Sagar University, Bengaluru</span> (CGPA: 8.69), focused on full-stack engineering, cloud infrastructure, and cybersecurity fundamentals.
-        </p>
-        <p>
-          I build across the entire stack — Java, Spring Boot, Node.js, Next.js, Django, and MongoDB — and care deeply about clean architecture, maintainable code, and shipping things that actually run in production, not just in a dev sandbox.
-        </p>
-        <p>
-          My interests span <span class="hl">AI-integrated cloud systems</span>, backend API design, and network security. I want to build tools that solve real problems — not just demos that live in a README and never get opened.
-        </p>
-      </div>
-      <a href="mailto:karnavs2k5@gmail.com" class="about-email">✉ karnavs2k5@gmail.com</a>
-    </div>
-
-    <div class="skill-cats reveal">
-      <div class="skill-cat">
-        <h4>Backend &amp; APIs</h4>
-        <div class="pills">
-          <span class="pill">Java</span>
-          <span class="pill">Spring Boot</span>
-          <span class="pill">Node.js</span>
-          <span class="pill">Express.js</span>
-          <span class="pill">Django</span>
-          <span class="pill">REST APIs</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <h4>Frontend</h4>
-        <div class="pills">
-          <span class="pill">JavaScript</span>
-          <span class="pill">Next.js</span>
-          <span class="pill">React</span>
-          <span class="pill">HTML5</span>
-          <span class="pill">CSS3</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <h4>Cloud &amp; Security</h4>
-        <div class="pills">
-          <span class="pill">Cloud Dev</span>
-          <span class="pill">Network Security</span>
-          <span class="pill">Linux</span>
-          <span class="pill">CyberSec Fundamentals</span>
-          <span class="pill">Firewalls &amp; Protocols</span>
-        </div>
-      </div>
-      <div class="skill-cat">
-        <h4>Tools &amp; Platforms</h4>
-        <div class="pills">
-          <span class="pill">MongoDB</span>
-          <span class="pill">MATLAB</span>
-          <span class="pill">Git</span>
-          <span class="pill">GitHub</span>
-          <span class="pill">Vercel</span>
-          <span class="pill">Postman</span>
-          <span class="pill">VS Code</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ══ PROJECTS ══ -->
-<section id="projects">
-  <div class="proj-head">
-    <div>
-      <div class="section-label">Work</div>
-      <div class="section-title" style="margin-bottom:0">PROJECTS</div>
-    </div>
-    <a href="https://github.com/karnavs" target="_blank" class="gh-btn">View all on GitHub →</a>
-  </div>
-
-  <div class="project-grid">
-
-    <!-- 01 — Featured -->
-    <div class="proj-card featured reveal">
-      <div>
-        <div class="proj-num">01</div>
-        <div class="proj-badges">
-          <span class="badge b-feat">★ Featured</span>
-          <span class="badge b-live">Live</span>
-          <span class="badge b-web">Full Stack</span>
-        </div>
-        <div class="proj-name">EXPENSE TRACKER</div>
-        <p class="proj-desc">
-          Production-deployed CRUD financial tracker with a real-time analytics dashboard, transaction history, and persistent state management. Built with a clean modular frontend architecture and Spring Boot REST API integration in active development. Deployed on Vercel.
-        </p>
-        <div class="proj-stack">
-          <span class="s-tag">JavaScript</span>
-          <span class="s-tag">HTML5</span>
-          <span class="s-tag">CSS3</span>
-          <span class="s-tag">Java</span>
-          <span class="s-tag">Spring Boot</span>
-          <span class="s-tag">LocalStorage</span>
-          <span class="s-tag">Vercel</span>
-        </div>
-        <div class="proj-links">
-          <a href="https://github.com/karnavs/expense-tracker" target="_blank" class="p-link">GitHub</a>
-          <a href="https://xpense-tracker-karna.vercel.app/" target="_blank" class="p-link live-l">Live Demo ↗</a>
-        </div>
-      </div>
-      <div class="live-badge">
-        <div class="live-dot"></div>
-        LIVE ↗
-      </div>
-    </div>
-
-    <!-- 02 -->
-    <div class="proj-card reveal">
-      <div class="proj-num">02</div>
-      <div class="proj-badges">
-        <span class="badge b-cloud">Cloud</span>
-        <span class="badge b-dev">In Dev</span>
-      </div>
-      <div class="proj-name">CLOUD MONITOR</div>
-      <p class="proj-desc">
-        Infrastructure monitoring dashboard built with Next.js and a Node.js backend. Tracks uptime, request rates, and system health metrics across services with alerting and structured log aggregation via MongoDB.
-      </p>
-      <div class="proj-stack">
-        <span class="s-tag">Next.js</span>
-        <span class="s-tag">Node.js</span>
-        <span class="s-tag">MongoDB</span>
-        <span class="s-tag">REST APIs</span>
-        <span class="s-tag">Vercel</span>
-      </div>
-      <div class="proj-links">
-        <a href="https://github.com/karnavs" target="_blank" class="p-link">GitHub</a>
-      </div>
-    </div>
-
-    <!-- 03 -->
-    <div class="proj-card reveal">
-      <div class="proj-num">03</div>
-      <div class="proj-badges">
-        <span class="badge b-sec">CyberSec</span>
-      </div>
-      <div class="proj-name">NETWORK AUDIT TOOL</div>
-      <p class="proj-desc">
-        Security audit utility that scans network configurations and surfaces common vulnerabilities — open ports, weak cipher suites, and misconfigured rules. Outputs structured risk-classified reports with remediation hints.
-      </p>
-      <div class="proj-stack">
-        <span class="s-tag">Python</span>
-        <span class="s-tag">Django</span>
-        <span class="s-tag">Linux</span>
-        <span class="s-tag">Networking</span>
-        <span class="s-tag">MATLAB</span>
-      </div>
-      <div class="proj-links">
-        <a href="https://github.com/karnavs" target="_blank" class="p-link">GitHub</a>
-      </div>
-    </div>
-
   </div>
 </section>
 
@@ -1262,6 +1309,172 @@
 
 <!-- ══ JS ══ -->
 <script>
+  /* ─────────────────────────────────────────
+     STARFIELD  — smooth, organic, no choppiness
+     Two layers:
+       1. Static tiny stars (parallax-free, just twinkle)
+       2. Slow shooting stars (rare, graceful arcs)
+  ───────────────────────────────────────── */
+  (function () {
+    const canvas = document.getElementById('starfield');
+    const ctx    = canvas.getContext('2d');
+
+    let W, H;
+    const STAR_COUNT   = 220;
+    const SHOOT_MAX    = 3;   // max simultaneous shooting stars
+
+    let stars    = [];
+    let shooters = [];
+    let raf;
+
+    /* ── resize ── */
+    function resize() {
+      W = canvas.width  = window.innerWidth;
+      H = canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    /* ── helpers ── */
+    function rand(a, b)  { return a + Math.random() * (b - a); }
+    function randInt(a,b){ return Math.floor(rand(a, b + 1)); }
+
+    /* ── static star ── */
+    function makeStar() {
+      return {
+        x:       rand(0, W),
+        y:       rand(0, H),
+        r:       rand(0.25, 1.4),
+        alpha:   rand(0.15, 0.75),
+        dAlpha:  rand(0.0002, 0.0012) * (Math.random() < 0.5 ? 1 : -1),
+        minA:    0.05,
+        maxA:    rand(0.5, 0.9),
+      };
+    }
+
+    /* ── shooting star ── */
+    function makeShooting() {
+      /* start from top-half, travel diagonally down-right or down-left */
+      const fromLeft = Math.random() < 0.5;
+      const sx = fromLeft ? rand(-W * 0.1, W * 0.3) : rand(W * 0.7, W * 1.1);
+      const sy = rand(-H * 0.05, H * 0.4);
+      const angle = fromLeft
+        ? rand(15, 50)          /* degrees, rightward */
+        : rand(130, 165);       /* degrees, leftward  */
+      const rad   = angle * Math.PI / 180;
+      const speed = rand(0.6, 1.6);           /* pixels per frame  */
+      const len   = rand(80, 220);
+
+      return {
+        sx, sy,                              /* start */
+        vx: Math.cos(rad) * speed,
+        vy: Math.sin(rad) * speed,
+        progress: 0,                         /* 0 → 1 (full length phase) → 2 (fade-out) */
+        totalDist: rand(W * 0.25, W * 0.55),/* how far it travels */
+        len,
+        alpha: 0,
+        maxAlpha: rand(0.5, 0.9),
+        fadeInDist:  60,
+        fadeOutDist: 120,
+        done: false,
+        /* current tip position */
+        x: sx, y: sy,
+      };
+    }
+
+    /* ── init ── */
+    for (let i = 0; i < STAR_COUNT; i++) stars.push(makeStar());
+
+    /* spawn first shooter after a short delay */
+    let nextShootIn = rand(2000, 5000);
+    let lastTime    = performance.now();
+
+    /* ── draw loop ── */
+    function draw(now) {
+      const dt = now - lastTime;
+      lastTime  = now;
+
+      ctx.clearRect(0, 0, W, H);
+
+      /* — static stars — */
+      for (const s of stars) {
+        s.alpha += s.dAlpha;
+        if (s.alpha >= s.maxA)  { s.alpha = s.maxA; s.dAlpha = -Math.abs(s.dAlpha); }
+        if (s.alpha <= s.minA)  { s.alpha = s.minA; s.dAlpha =  Math.abs(s.dAlpha); }
+
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(180,220,255,${s.alpha})`;
+        ctx.fill();
+      }
+
+      /* — spawn shooting stars — */
+      nextShootIn -= dt;
+      if (nextShootIn <= 0 && shooters.length < SHOOT_MAX) {
+        shooters.push(makeShooting());
+        nextShootIn = rand(1000, 3000);   /* next one in 3.5–9 seconds */
+      }
+
+      /* — draw shooting stars — */
+      for (let i = shooters.length - 1; i >= 0; i--) {
+        const s = shooters[i];
+
+        /* advance tip */
+        s.x += s.vx;
+        s.y += s.vy;
+        s.progress += Math.sqrt(s.vx * s.vx + s.vy * s.vy);
+
+        const dist = s.progress;
+        const total = s.totalDist;
+
+        /* fade in / fade out */
+        if (dist < s.fadeInDist) {
+          s.alpha = s.maxAlpha * (dist / s.fadeInDist);
+        } else if (dist > total - s.fadeOutDist) {
+          s.alpha = s.maxAlpha * Math.max(0, (total - dist) / s.fadeOutDist);
+        } else {
+          s.alpha = s.maxAlpha;
+        }
+
+        if (dist >= total) { s.done = true; }
+
+        /* tail start — clamp so tail doesn't exceed travelled distance */
+        const tailLen = Math.min(s.len, dist);
+        const tx = s.x - Math.cos(Math.atan2(s.vy, s.vx)) * tailLen;
+        const ty = s.y - Math.sin(Math.atan2(s.vy, s.vx)) * tailLen;
+
+        /* gradient along the tail */
+        const grad = ctx.createLinearGradient(tx, ty, s.x, s.y);
+        grad.addColorStop(0,   `rgba(0,229,255,0)`);
+        grad.addColorStop(0.4, `rgba(180,240,255,${s.alpha * 0.3})`);
+        grad.addColorStop(1,   `rgba(220,250,255,${s.alpha})`);
+
+        ctx.beginPath();
+        ctx.moveTo(tx, ty);
+        ctx.lineTo(s.x, s.y);
+        ctx.strokeStyle = grad;
+        ctx.lineWidth   = rand(0.8, 1.4);
+        ctx.lineCap     = 'round';
+        ctx.stroke();
+
+        /* tiny bright tip glow */
+        const tipGlow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, 3);
+        tipGlow.addColorStop(0, `rgba(255,255,255,${s.alpha * 0.9})`);
+        tipGlow.addColorStop(1, `rgba(0,229,255,0)`);
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 3, 0, Math.PI * 2);
+        ctx.fillStyle = tipGlow;
+        ctx.fill();
+
+        if (s.done) shooters.splice(i, 1);
+      }
+
+      raf = requestAnimationFrame(draw);
+    }
+
+    raf = requestAnimationFrame(draw);
+  })();
+
   /* ── Scroll Reveal ── */
   const revealEls = document.querySelectorAll('.reveal');
   const revealObs = new IntersectionObserver(entries => {
