@@ -585,7 +585,7 @@
       line-height: 1;
     }
     .edu-tags { display: flex; flex-wrap: wrap; gap: 0.45rem; }
-    .tag {
+   .tag {
       font-family: var(--mono);
       font-size: 0.68rem;
       padding: 0.22rem 0.6rem;
@@ -594,6 +594,14 @@
       border-radius: 2px;
       color: var(--muted);
       letter-spacing: 0.06em;
+      transition: all 0.2s;
+      cursor: default;
+    }
+    .tag:hover {
+      background: rgba(0,229,255,0.15);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      box-shadow: 0 0 10px rgba(0,229,255,0.25);
     }
 
     /* SGPA Chart */
@@ -898,7 +906,7 @@
         <span class="stat-label">Live Projects</span>
       </div>
       <div>
-        <span class="stat-num">8.69</span>
+        <span class="stat-num">8.66</span>
         <span class="stat-label">CGPA</span>
       </div>
       <div>
@@ -990,7 +998,7 @@
     <div class="reveal">
       <div class="about-bio">
         <p>
-          I'm a 4th year Computer Science student at <span class="hl">Dayananda Sagar University, Bengaluru</span> (CGPA: 8.69), focused on full-stack engineering, cloud infrastructure, and cybersecurity fundamentals.
+          I'm a 4th year Computer Science student at <span class="hl">Dayananda Sagar University, Bengaluru</span> (CGPA: 8.66), focused on full-stack engineering, cloud infrastructure, and cybersecurity fundamentals.
         </p>
         <p>
           I build across the entire stack — Java, Spring Boot, Node.js, Next.js, Django, and MongoDB — and care deeply about clean architecture, maintainable code, and shipping things that actually run in production, not just in a dev sandbox.
@@ -1075,41 +1083,56 @@
   <div class="project-grid">
 
     <!-- 01 — Featured -->
+    <!-- 01 — SentryGrid (Featured) -->
     <div class="proj-card featured reveal">
       <div>
         <div class="proj-num">01</div>
         <div class="proj-badges">
           <span class="badge b-feat">★ Featured</span>
           <span class="badge b-live">Live</span>
-          <span class="badge b-web">Full Stack</span>
+          <span class="badge b-sec">CyberSec</span>
+          <span class="badge b-ai">AI / ML</span>
         </div>
-        <div class="proj-name">EXPENSE TRACKER</div>
+        <div class="proj-name">SENTRYGRID</div>
         <p class="proj-desc">
-          Production-deployed CRUD financial tracker with a real-time analytics dashboard, transaction history, and persistent state management. Built with a clean modular frontend architecture and Spring Boot REST API integration in active development. Deployed on Vercel.
+          AI-augmented SIEM platform that ingests security events, correlates them into alerts via a rule engine mapped to MITRE ATT&amp;CK, and triages them with an LLM. Analysts get a full console to investigate, act on, and report threats — with RBAC (Admin/Analyst/Viewer), audit logging, and AWS deployment via ECS Fargate, RDS, S3, CloudWatch, and Terraform.
         </p>
         <div class="proj-stack">
-          <span class="s-tag">JavaScript</span>
-          <span class="s-tag">HTML5</span>
-          <span class="s-tag">CSS3</span>
-          <span class="s-tag">Java</span>
-          <span class="s-tag">Spring Boot</span>
-          <span class="s-tag">LocalStorage</span>
-          <span class="s-tag">Vercel</span>
+          <span class="s-tag">Next.js 14</span><span class="s-tag">TypeScript</span><span class="s-tag">Node.js</span>
+          <span class="s-tag">Express.js</span><span class="s-tag">PostgreSQL</span><span class="s-tag">Prisma</span>
+          <span class="s-tag">LangChain</span><span class="s-tag">OpenAI API</span><span class="s-tag">MITRE ATT&amp;CK</span>
+          <span class="s-tag">Docker</span><span class="s-tag">AWS</span><span class="s-tag">Terraform</span>
         </div>
         <div class="proj-links">
-          <a href="https://github.com/karnavs/expense-tracker" target="_blank" class="p-link">GitHub</a>
-          <a href="https://xpense-tracker-karna.vercel.app/" target="_blank" class="p-link live-l">Live Demo ↗</a>
+          <a href="https://github.com/karnavs/siem" target="_blank" class="p-link">GitHub</a>
+          <a href="https://siem-mu.vercel.app" target="_blank" class="p-link live-l">Live Demo ↗</a>
         </div>
       </div>
-      <div class="live-badge">
-        <div class="live-dot"></div>
-        LIVE ↗
+      <div class="live-badge"><div class="live-dot"></div>LIVE ↗</div>
+    </div>
+
+    <!-- 02 — Expense Tracker -->
+    <div class="proj-card reveal">
+      <div class="proj-num">02</div>
+      <div class="proj-badges">
+        <span class="badge b-live">Live</span>
+        <span class="badge b-web">Full Stack</span>
+      </div>
+      <div class="proj-name">EXPENSE TRACKER</div>
+      <p class="proj-desc">Production-deployed CRUD financial tracker with a real-time analytics dashboard, transaction history, and persistent state management. Built with a clean modular frontend architecture and Spring Boot REST API integration in active development. Deployed on Vercel.</p>
+      <div class="proj-stack">
+        <span class="s-tag">JavaScript</span><span class="s-tag">HTML5</span><span class="s-tag">CSS3</span>
+        <span class="s-tag">Java</span><span class="s-tag">Spring Boot</span><span class="s-tag">LocalStorage</span><span class="s-tag">Vercel</span>
+      </div>
+      <div class="proj-links">
+        <a href="https://github.com/karnavs/expense-tracker" target="_blank" class="p-link">GitHub</a>
+        <a href="https://xpense-tracker-karna.vercel.app/" target="_blank" class="p-link live-l">Live Demo ↗</a>
       </div>
     </div>
 
-    <!-- 02 — Emotix AI -->
+    <!-- 03 — Emotix AI -->
     <div class="proj-card reveal">
-      <div class="proj-num">02</div>
+      <div class="proj-num">03</div>
       <div class="proj-badges">
         <span class="badge b-ai">AI / ML</span>
         <span class="badge b-live">Live</span>
@@ -1134,9 +1157,9 @@
       </div>
     </div>
 
-    <!-- 03 — Aegis -->
+    <!-- 04 — Aegis -->
     <div class="proj-card reveal">
-      <div class="proj-num">03</div>
+      <div class="proj-num">04</div>
       <div class="proj-badges">
         <span class="badge b-block">Blockchain</span>
         <span class="badge b-done">Completed</span>
@@ -1176,7 +1199,7 @@
       <div class="edu-meta">
         <div class="edu-meta-item">
           <label>CGPA</label>
-          <div class="val">8.69</div>
+          <div class="val">8.66</div>
         </div>
         <div class="edu-meta-item">
           <label>Duration</label>
@@ -1229,10 +1252,12 @@
           <div class="bar-bg"><div class="bar best" data-w="90.0"></div></div>
           <span class="bar-val best-v">9.00</span>
         </div>
+        <div class="sem-row">
+          <span class="sem-lbl">Sem 6</span>
+          <div class="bar-bg"><div class="bar" data-w="85.5"></div></div>
+          <span class="bar-val">8.55</span>
+        </div>
       </div>
-      <p class="sem-note">
-        SGPA jumped from <strong>8.57 → 9.00</strong> — best semester in Sem 5. CGPA steady at <strong>8.69</strong>.
-      </p>
     </div>
   </div>
 </section>
@@ -1321,8 +1346,8 @@
     const ctx    = canvas.getContext('2d');
 
     let W, H;
-    const STAR_COUNT   = 220;
-    const SHOOT_MAX    = 3;   // max simultaneous shooting stars
+    const STAR_COUNT   = 360;
+    const SHOOT_MAX    = 5;   // max simultaneous shooting stars
 
     let stars    = [];
     let shooters = [];
@@ -1346,10 +1371,9 @@
         x:       rand(0, W),
         y:       rand(0, H),
         r:       rand(0.25, 1.4),
-        alpha:   rand(0.15, 0.75),
-        dAlpha:  rand(0.0002, 0.0012) * (Math.random() < 0.5 ? 1 : -1),
-        minA:    0.05,
-        maxA:    rand(0.5, 0.9),
+        alpha: rand(0.25, 0.95),
+        dAlpha: rand(0.0003, 0.002) * (Math.random() < 0.5 ? 1 : -1),
+        minA: 0.08, maxA: rand(0.75, 1.0),
       };
     }
 
@@ -1374,7 +1398,7 @@
         totalDist: rand(W * 0.25, W * 0.55),/* how far it travels */
         len,
         alpha: 0,
-        maxAlpha: rand(0.5, 0.9),
+        maxAlpha: rand(0.85, 1.0),
         fadeInDist:  60,
         fadeOutDist: 120,
         done: false,
@@ -1387,7 +1411,7 @@
     for (let i = 0; i < STAR_COUNT; i++) stars.push(makeStar());
 
     /* spawn first shooter after a short delay */
-    let nextShootIn = rand(2000, 5000);
+    let nextShootIn = rand(500, 1500);
     let lastTime    = performance.now();
 
     /* ── draw loop ── */
@@ -1413,7 +1437,7 @@
       nextShootIn -= dt;
       if (nextShootIn <= 0 && shooters.length < SHOOT_MAX) {
         shooters.push(makeShooting());
-        nextShootIn = rand(1000, 3000);   /* next one in 3.5–9 seconds */
+        nextShootIn = rand(500, 1500);   /* next one in 0.5–1.5 seconds */
       }
 
       /* — draw shooting stars — */
