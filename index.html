@@ -670,6 +670,42 @@
     .sem-note strong { color: var(--text); }
 
     /* ── CERTS ── */
+    ```css
+.cert-credential {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  color: var(--muted);
+  margin-top: 0.45rem;
+  letter-spacing: 0.02em;
+}
+
+.cert-credential span {
+  color: var(--amber);
+}
+
+.cert-name a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.cert-name a:hover {
+  color: var(--amber);
+}
+
+.cert-verify {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--amber);
+  text-decoration: none;
+  white-space: nowrap;
+  margin-left: 2rem;
+}
+
+.cert-verify:hover {
+  text-decoration: underline;
+}
+```
     #certs { background: rgba(6,10,15,0.92); }
     .cert-list {
       display: flex;
@@ -1302,11 +1338,95 @@
 </section>
 
 <!-- ══ CERTS ══ -->
+```html
+<!-- ══ CERTS ══ -->
 <section id="certs">
   <div class="section-label">Credentials</div>
   <div class="section-title">CERTIFICATIONS</div>
 
   <div class="cert-list">
+
+    <!-- 01. AWS Cloud Foundations -->
+    <div class="cert-row reveal">
+      <div>
+        <div class="cert-name">
+          <a href="https://www.credly.com/go/8IRZ2sJU"
+             target="_blank"
+             rel="noopener noreferrer">
+            AWS Cloud Foundations ↗
+          </a>
+        </div>
+        <div class="cert-issuer">Amazon Web Services (AWS)</div>
+      </div>
+
+      <a href="https://www.credly.com/go/8IRZ2sJU"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="cert-verify">
+        VERIFY ↗
+      </a>
+    </div>
+
+    <!-- 02. AWS Cloud Architecting -->
+    <div class="cert-row reveal">
+      <div>
+        <div class="cert-name">
+          <a href="https://www.credly.com/go/HFaj5udM"
+             target="_blank"
+             rel="noopener noreferrer">
+            AWS Cloud Architecting ↗
+          </a>
+        </div>
+        <div class="cert-issuer">Amazon Web Services (AWS)</div>
+      </div>
+
+      <a href="https://www.credly.com/go/HFaj5udM"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="cert-verify">
+        VERIFY ↗
+      </a>
+    </div>
+
+    <!-- 03. AI Search Operating System -->
+    <div class="cert-row reveal">
+      <div>
+        <div class="cert-name">AI Search Operating System</div>
+        <div class="cert-credential">
+          Credential ID: <span>783002</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 04. Deloitte Australia - Virtual Internship (Cyber) -->
+    <div class="cert-row reveal">
+      <div>
+        <div class="cert-name">
+          Deloitte Australia — Virtual Internship (Cyber)
+        </div>
+        <div class="cert-issuer">Deloitte Australia</div>
+        <div class="cert-credential">
+          Credential ID:
+          <span>TXvyo99jcL3Ymuxiv</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 05. Deloitte Australia - Technology Job Simulation -->
+    <div class="cert-row reveal">
+      <div>
+        <div class="cert-name">
+          Deloitte Australia — Technology Job Simulation
+        </div>
+        <div class="cert-issuer">Deloitte Australia</div>
+        <div class="cert-credential">
+          Credential ID:
+          <span>XFiLWdS97tisinunC</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 06. Existing certificate: AI Fundamentals -->
     <div class="cert-row reveal">
       <div>
         <div class="cert-name">AI Fundamentals</div>
@@ -1314,6 +1434,8 @@
       </div>
       <div class="cert-date">June 2024</div>
     </div>
+
+    <!-- 07. Existing certificate: Computer Networks Fundamentals -->
     <div class="cert-row reveal">
       <div>
         <div class="cert-name">Computer Networks Fundamentals</div>
@@ -1321,9 +1443,10 @@
       </div>
       <div class="cert-date">August 2025</div>
     </div>
+
   </div>
 </section>
-
+```
 <!-- ══ CONTACT ══ -->
 <section id="contact">
   <div class="section-label">Get in touch</div>
